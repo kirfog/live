@@ -1,23 +1,19 @@
 import numpy
-z = 3
-#a = zeros((z+2, z+2))
-#b = numpy.zeros((z+2, z+2))
+z = 5
+cells = numpy.random.randint(2, size=(z, z))
+print(cells)
 
-a=numpy.array([[0, 0, 0, 0, 0,],
- 		 	   [0, 1, 1, 1, 0,],
- 		 	   [0, 1, 1, 1, 0,],
- 		 	   [0, 0, 0, 0, 0,],
- 		 	   [0, 0, 0, 0, 0,]])
 
-b=numpy.array([[0, 0, 0, 0, 0,],
- 		 	   [0, 0, 0, 0, 0,],
- 		 	   [0, 0, 0, 0, 0,],
- 		 	   [0, 0, 0, 0, 0,],
- 		 	   [0, 0, 0, 0, 0,]])
+def tern(cells):
+	z=len(cells)
+	nextcells = numpy.random.randint(1, size=(z, z))
+	a = numpy.random.randint(1, size=(z+2, z+2))
+	b = numpy.random.randint(1, size=(z+2, z+2))
 
-print(a)
+	for x in range(0, z):
+		for y in range(0, z):
+			a[x+1,y+1] = cells[x,y]
 
-def tern(a):
 	for x in range(1, z+1):
 		for y in range(1, z+1):
 			c = 0
@@ -31,11 +27,15 @@ def tern(a):
 				b[x, y] = 0
 			else:
 				b[x, y] = a[x, y]
-	return(b)
 
-for i in range(1,11):
-	a = tern(a)
-	print(a)
+	for x in range(0, z):
+		for y in range(0, z):
+			nextcells[x,y] = b[x+1,y+1]
+
+	return(nextcells)
 
 
 
+for i in range(1,21):
+	cells = tern(cells)
+	print(cells)
