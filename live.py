@@ -13,24 +13,6 @@ class Life:
         self.speed = speed
         self.cells=[]
 
-    def draw_grid(self):
-        for x in range(self.y):
-            pygame.draw.line(self.screen, pygame.Color('black'), (x*self.cell_size, 0), (x*self.cell_size, self.width))
-
-        for y in range(self.x):
-            pygame.draw.line(self.screen, pygame.Color('black'), (0, y*self.cell_size), (self.width, y*self.cell_size))
-
-    def draw(self, cells):
-        for x in range (self.x):
-            for y in range (self.y):
-                if cells[x,y] == 0:
-                    pygame.draw.rect(self.screen, pygame.Color('white'), ((y)*self.cell_size,(x)*self.cell_size, self.cell_size, self.cell_size))
-                else:
-                    pygame.draw.rect(self.screen, pygame.Color('green'), ((y)*self.cell_size,(x)*self.cell_size, self.cell_size, self.cell_size))
-
-    def click(self, pos):
-        self.cells[pos[1]//self.cell_size][pos[0]//self.cell_size] = 1
-
     def fill(self, randomize=False):
         if randomize:
             cells = numpy.random.randint(2, size=(self.x, self.y))
@@ -66,6 +48,25 @@ class Life:
                 nextcells[x,y] = b[x+1,y+1]
 
         return(nextcells)
+
+    def draw(self, cells):
+        for x in range (self.x):
+            for y in range (self.y):
+                if cells[x,y] == 0:
+                    pygame.draw.rect(self.screen, pygame.Color('white'), ((y)*self.cell_size,(x)*self.cell_size, self.cell_size, self.cell_size))
+                else:
+                    pygame.draw.rect(self.screen, pygame.Color('green'), ((y)*self.cell_size,(x)*self.cell_size, self.cell_size, self.cell_size))
+    
+    def draw_grid(self):
+        for y in range(self.y):
+            pygame.draw.line(self.screen, pygame.Color('blue'), (y*self.cell_size, 0), (y*self.cell_size, self.height))
+
+        for x in range(self.x):
+            pygame.draw.line(self.screen, pygame.Color('red'), (0, x*self.cell_size), (self.width, x*self.cell_size))
+
+    
+    def click(self, pos):
+        self.cells[pos[1]//self.cell_size][pos[0]//self.cell_size] = 1
 
     def run(self):
         pygame.init()
